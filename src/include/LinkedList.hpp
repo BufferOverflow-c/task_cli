@@ -28,9 +28,9 @@ public:
     [[nodiscard]] Node *pGetTail() const { return pTail; }
 
     void setTaskID(const Node &node);
-    void setTaskName(const std::string &rTask_name) { mTask_name = rTask_name; }
-    void setTaskStatus(const std::string &rTask_status) { mTask_status = rTask_status; }
-    void setTaskDescription(const std::string &rTask_description) { mTask_description = rTask_description; }
+    void setTaskName(const int id, const std::string &rTask_name);
+    void setTaskStatus(const int id, const std::string &rTask_status);
+    void setTaskDescription(const int id, const std::string &rTask_description);
 
 private:
     std::map <Node::Status, std::string> status_map = {

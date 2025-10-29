@@ -1,13 +1,6 @@
-//
-// Created by - on 10/29/25.
-//
-
 #include "LinkedList.hpp"
 
-LinkedList::LinkedList() {
-}
-
-LinkedList::LinkedList(const std::string &task_name) {
+LinkedList::LinkedList() : pHead(nullptr), pTail(nullptr), mSize(0) {
 }
 
 LinkedList::~LinkedList() {
@@ -36,4 +29,13 @@ void LinkedList::updateTask(const int &task_id, const std::string &task_name, No
 }
 
 void LinkedList::setTaskID(const Node &node) {
+}
+
+void LinkedList::setTaskName(const int id, const std::string &rTask_name) {
+}
+
+void LinkedList::setTaskStatus(const int id, const std::string &rTask_status) {
+}
+
+void LinkedList::setTaskDescription(const int id, const std::string &rTask_description) {
 }
