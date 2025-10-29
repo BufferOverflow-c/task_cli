@@ -1,19 +1,51 @@
+#include <cstdlib>
+#include <cctype>
 #include <iostream>
-#include "test.hpp"
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+#include "Menu.hpp"
+#include "Node.hpp"
+
+bool checkInput(std::string &input);
+
 int main() {
-    // TIP Press <shortcut actionId="RenameElement"/> when your caret is at the <b>lang</b> variable name to see how CLion can help you rename it.
-    auto lang = "C++";
-    std::cout << "Hello and welcome to " << lang << "!\n";
+    Node node;
 
-    for (int i = 1; i <= 5; i++) {
-        // TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        std::cout << "i = " << i << std::endl;
+    bool is_active = true;
+    while (is_active) {
+        Menu::print(true);
+        std::string input;
+
+        bool validInput{false};
+        std::getline(std::cin, input);
+        validInput = checkInput(input);
+        if (!validInput) continue;
+        std::println("Valid Input!");
+
+        is_active = false;
     }
 
-    Test::print();
-
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
+}
+
+bool checkInput(std::string &input) {
+    std::ranges::transform(input, input.begin(), [] (const unsigned char c) { return std::tolower(c); });
+
+    if (input.length() != 1) {
+        std::println("Invalid input, only single character input is accepted.");
+        return false;
+    }
+
+    for (const std::string validInput[5] = {"a", "r", "u", "d", "e"}; auto c : validInput) {
+        if (input == c) {
+            // TODO: separate the cases
+            if (input == "a" || input == "r" || input == "u" || input == "d") {
+                return true;
+            }
+            std::println("exiting..");
+            std::exit(EXIT_SUCCESS);
+        }
+    }
+
+    std::println("Invalid input, please make a valid selection from the Menu.");
+    return false;
 }
