@@ -5,26 +5,23 @@
 #ifndef TASK_CLI_NODE_HPP
 #define TASK_CLI_NODE_HPP
 
-#include <map>
 #include <string>
+#include <utility>
 
-#include <iostream>
+#include "Status.hpp"
 
 class Node {
 public:
-    Node() : pPrev(nullptr), pNext(nullptr), mTask_id(0), mTask_status(status_map[Status::ToDo]) {}
+    explicit Node(std::string task_name) : pPrev(nullptr), pNext(nullptr), mTask_id(0), mTask_name(std::move(task_name)), mTask_status(status_string(Status::ToDo)) {
+        mTask_description = "";
+        mTask_creation_datetime = "";
+        mTask_last_updated_datetime = "";
+    }
 
-    enum Status {
-        ToDo,
-        InProgress,
-        Done
-    };
-
-    std::map <Status, std::string> status_map = {
-        {Status::ToDo, "todo"},
-        {Status::InProgress, "In-Progress"},
-        {Status::Done, "Done"}
-    };
+    ~Node() {
+        delete pPrev;
+        delete pNext;
+    }
 
     Node *pPrev;
     Node *pNext;

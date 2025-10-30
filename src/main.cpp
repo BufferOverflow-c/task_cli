@@ -2,27 +2,34 @@
 #include <cctype>
 #include <iostream>
 
+#include "LinkedList.hpp"
 #include "Menu.hpp"
 #include "Node.hpp"
 
 bool checkInput(std::string &input);
 
 int main() {
-    Node node;
+    LinkedList list;
+    list.addTask("Test");
+    list.addTask("Test2");
+    list.addTask("Test3");
+    list.addTask("Test4");
 
-    bool is_active = true;
-    while (is_active) {
-        Menu::print(true);
-        std::string input;
+    list.printTasks();
 
-        bool validInput{false};
-        std::getline(std::cin, input);
-        validInput = checkInput(input);
-        if (!validInput) continue;
-        std::println("Valid Input!");
+    //bool is_active = true;
+    //while (is_active) {
+    //    Menu::print(true);
+    //    std::string input;
 
-        is_active = false;
-    }
+    //    bool validInput{false};
+    //    std::getline(std::cin, input);
+    //    validInput = checkInput(input);
+    //    if (!validInput) continue;
+    //    std::println("Valid Input!");
+
+    //    is_active = false;
+    //}
 
     return 0;
 }

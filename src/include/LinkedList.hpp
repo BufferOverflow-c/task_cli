@@ -8,39 +8,29 @@
 #include <string>
 
 #include "Node.hpp"
+#include "Status.hpp"
 
 class LinkedList {
 public:
     LinkedList();
-    explicit LinkedList(const std::string &task_name);
     ~LinkedList();
 
     void addTask(const std::string &task_name);
-    void addTask(const std::string &task_name, Node::Status status);
-    void removeTask(const int &task_id);
+    void removeTask(const int task_id);
+    void printTasks() const;
 
-    void updateTask(const int &task_id, Node::Status status);
-    void updateTask(const int &task_id, const std::string &task_description);
-    void updateTask(const int &task_id, const std::string &task_name = "", const std::string &task_description = "");
-    void updateTask(const int &task_id, const std::string &task_name = "", Node::Status status=Node::Status::ToDo, const std::string &task_description = "");
-
-    [[nodiscard]] Node *pGetHead() const { return pHead; }
-    [[nodiscard]] Node *pGetTail() const { return pTail; }
+    void updateTask(const int task_id, Status status);
+    void updateTask(const int task_id, const std::string &task_description);
+    void updateTask(const int task_id, const std::string &task_name = "", const std::string &task_description = "");
+    void updateTask(const int task_id, const std::string &task_name = "", Status status=Status::ToDo, const std::string &task_description = "");
 
     void setTaskID(const Node &node);
-    void setTaskName(const int id, const std::string &rTask_name);
-    void setTaskStatus(const int id, const std::string &rTask_status);
-    void setTaskDescription(const int id, const std::string &rTask_description);
+    void setTaskName(const int task_id, const std::string &rTask_name);
+    void setTaskStatus(const int task_id, const Status status);
+    void setTaskDescription(const int task_id, const std::string &rTask_description);
 
 private:
-    std::map <Node::Status, std::string> status_map = {
-        {Node::Status::ToDo, "todo"},
-        {Node::Status::InProgress, "In-Progress"},
-        {Node::Status::Done, "Done"}
-    };
-
     Node *pHead;
-    Node *pTail;
     int mSize;
 };
 
