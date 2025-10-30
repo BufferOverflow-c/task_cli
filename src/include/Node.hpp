@@ -18,10 +18,7 @@ public:
         mTask_last_updated_datetime = "";
     }
 
-    ~Node() {
-        delete pPrev;
-        delete pNext;
-    }
+    ~Node() = default;
 
     Node *pPrev;
     Node *pNext;

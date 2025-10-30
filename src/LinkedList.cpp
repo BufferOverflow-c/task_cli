@@ -29,7 +29,30 @@ void LinkedList::addTask(const std::string &task_name) {
 }
 
 void LinkedList::removeTask(const int task_id) {
-
+    if (!pHead) {
+        std::println("No tasks to remove.");
+        return;
+    }
+    if (pHead->mTask_id == task_id) {
+        Node *pTemp = pHead;
+        pHead = pHead->pNext;
+        delete pTemp;
+        mSize--;
+        return;
+    }
+    Node *pPrev = pHead;
+    Node *pCurr = pHead->pNext;
+    while (pCurr) {
+        if (pCurr->mTask_id == task_id) {
+            pPrev->pNext = pCurr->pNext;
+            delete pCurr;
+            mSize--;
+            return;
+        }
+        pPrev = pCurr;
+        pCurr = pCurr->pNext;
+    }
+    std::println("Task with ID {} not found.", task_id);
 }
 
 void LinkedList::printTasks() const {

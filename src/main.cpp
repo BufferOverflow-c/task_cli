@@ -14,6 +14,7 @@ int main() {
     list.addTask("Test2");
     list.addTask("Test3");
     list.addTask("Test4");
+    list.removeTask(2);
 
     list.printTasks();
 
