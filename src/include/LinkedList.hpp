@@ -20,17 +20,16 @@ public:
   void printTasks() const;
 
   void updateTask(const int task_id, Status status);
-  void updateTask(const int task_id, const std::string &task_description);
-  void updateTask(const int task_id, const std::string &task_name = "",
-                  const std::string &task_description = "");
-  void updateTask(const int task_id, const std::string &task_name = "",
+  void updateTask(const int task_id, const std::string &rTask_description);
+  void updateTask(const int task_id, const std::string &rTask_name = "",
+                  const std::string &rTask_description = "");
+  void updateTask(const int task_id, const std::string &rTask_name = "",
                   Status status = Status::ToDo,
-                  const std::string &task_description = "");
+                  const std::string &rTask_description = "");
 
-  void setTaskName(const int task_id, const std::string &rTask_name);
-  void setTaskStatus(const int task_id, const Status status);
-  void setTaskDescription(const int task_id,
-                          const std::string &rTask_description);
+  void setTaskName(Node &rNode, const std::string &rTask_name);
+  void setTaskStatus(Node &rNode, const Status status);
+  void setTaskDescription(Node &rNode, const std::string &rTask_description);
 
 private:
   Node *pHead;

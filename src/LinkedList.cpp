@@ -74,23 +74,62 @@ void LinkedList::printTasks() const {
   }
 }
 
-void LinkedList::updateTask(const int task_id, Status status) {}
-
-void LinkedList::updateTask(const int task_id,
-                            const std::string &task_description) {}
-
-void LinkedList::updateTask(const int task_id, const std::string &task_name,
-                            const std::string &task_description) {}
-
-void LinkedList::updateTask(const int task_id, const std::string &task_name,
-                            Status status,
-                            const std::string &task_description) {}
-
-void LinkedList::setTaskName(const int task_id, const std::string &rTask_name) {
-
+void LinkedList::updateTask(const int task_id, Status status) {
+  Node *pNode = pHead;
+  while (pNode) {
+    if (pNode->mTask_id == task_id) {
+      setTaskStatus(*pNode, status);
+    }
+    pNode = pNode->pNext;
+  }
 }
 
-void LinkedList::setTaskStatus(const int task_id, const Status status) {}
+void LinkedList::updateTask(const int task_id,
+                            const std::string &rTask_description) {
+  Node *pNode = pHead;
+  while (pNode) {
+    if (pNode->mTask_id == task_id) {
+      setTaskDescription(*pNode, rTask_description);
+    }
+    pNode = pNode->pNext;
+  }
+}
 
-void LinkedList::setTaskDescription(const int task_id,
-                                    const std::string &rTask_description) {}
+void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
+                            const std::string &rTask_description) {
+  Node *pNode = pHead;
+  while (pNode) {
+    if (pNode->mTask_id == task_id) {
+      setTaskName(*pNode, rTask_name);
+      setTaskDescription(*pNode, rTask_description);
+    }
+    pNode = pNode->pNext;
+  }
+}
+
+void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
+                            Status status,
+                            const std::string &rTask_description) {
+  Node *pNode = pHead;
+  while (pNode) {
+    if (pNode->mTask_id == task_id) {
+      setTaskName(*pNode, rTask_name);
+      setTaskStatus(*pNode, status);
+      setTaskDescription(*pNode, rTask_description);
+    }
+    pNode = pNode->pNext;
+  }
+}
+
+void LinkedList::setTaskName(Node &rNode, const std::string &rTask_name) {
+  rNode.mTask_name = rTask_name;
+}
+
+void LinkedList::setTaskStatus(Node &rNode, const Status status) {
+  rNode.mTask_status = status_string(status);
+}
+
+void LinkedList::setTaskDescription(Node &rNode,
+                                    const std::string &rTask_description) {
+  rNode.mTask_description = rTask_description;
+}
