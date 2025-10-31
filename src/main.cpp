@@ -4,9 +4,9 @@
 
 #include "LinkedList.hpp"
 #include "Menu.hpp"
-#include "Node.hpp"
 
 void getInput(LinkedList &list);
+void getUpdateChoice(LinkedList &list);
 
 int main() {
   LinkedList list;
@@ -20,9 +20,8 @@ int main() {
   bool is_active = true;
 
   while (is_active) {
-    Menu::print();
-    std::string input;
-    std::getline(std::cin, input);
+    Menu::printOptions();
+    getInput(list);
   }
 
   return 0;
@@ -31,34 +30,117 @@ int main() {
 void getInput(LinkedList &list) {
   std::string input;
   std::getline(std::cin, input);
-  std::ranges::transform(input, input.begin(),
-                         [](char c) { return std::tolower(c); });
-  const std::string options[5] = {"a", "r", "u", "p", "q"};
-
-  if (input == options[0]) {
+  const int choice = std::stoi(input);
+  switch (choice) {
+  case 1:
     std::println("Enter task name:");
     std::getline(std::cin, input);
     std::println("Adding task..");
     list.addTask(input);
     std::println("Task added!");
-  } else if (input == options[1]) {
+    break;
+  case 2:
     std::println("Enter task ID:");
     std::getline(std::cin, input);
     std::println("Removing task..");
     list.removeTask(std::stoi(input));
     std::println("Task removed!");
-  } else if (input == options[2]) {
-    std::println("Enter task ID:");
-    std::getline(std::cin, input);
-    // TODO: add update options for the user to choose from
-  } else if (input == options[3]) {
+    break;
+  case 3:
+    getUpdateChoice(list);
+    break;
+  case 4:
     std::println("Printing tasks..\n");
     list.printTasks();
     std::println("\nTasks printed!");
-  } else if (input == options[4]) {
+    break;
+  case 0:
     std::println("Exiting..");
     std::exit(0);
-  } else {
+  default:
     std::println("Invalid option!");
   }
+}
+
+void getUpdateChoice(LinkedList &list) {
+  Menu::printUpdateOptions();
+  std::string input;
+  std::string id;
+  std::string name;
+  std::string status;
+  std::string description;
+  std::getline(std::cin, input);
+
+  switch (std::stoi(input)) {
+  case 1:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    std::println("Enter task name:");
+    std::getline(std::cin, name);
+    list.updateTask(std::stoi(id), name);
+    std::println("Task name updated!");
+    break;
+  case 2:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    Menu::printStatusOptions();
+    std::getline(std::cin, status);
+    // TODO: update task status choice
+    std::println("Task status updated!");
+    break;
+  case 3:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    std::println("Enter task description:");
+    std::getline(std::cin, description);
+    list.updateTask(std::stoi(id), name, Status::ToDo, description);
+    std::println("Task description updated!");
+    break;
+  case 4:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    std::println("Enter task name:");
+    std::getline(std::cin, name);
+    Menu::printStatusOptions();
+    std::getline(std::cin, status);
+
+    std::println("Task name and status updated!");
+    break;
+  case 5:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    Menu::printStatusOptions();
+    std::getline(std::cin, status);
+    std::println("Enter task description:");
+    std::getline(std::cin, description);
+
+    std::println("Task status and description updated!");
+    break;
+  case 6:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    std::println("Enter task name:");
+    std::getline(std::cin, name);
+    std::println("Enter task description:");
+    std::getline(std::cin, description);
+
+    std::println("Task name and description updated!");
+    break;
+  case 7:
+    std::println("Enter task ID:");
+    std::getline(std::cin, id);
+    std::println("Enter task name:");
+    std::getline(std::cin, name);
+    Menu::printStatusOptions();
+    std::getline(std::cin, status);
+    std::println("Enter task description:");
+    std::getline(std::cin, description);
+
+    std::println("Task name and description updated!");
+    break;
+  case 0:
+
+  default:
+    std::println("Invalid option!");
+  };
 }

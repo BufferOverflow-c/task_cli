@@ -1,4 +1,5 @@
 #include "LinkedList.hpp"
+#include <ctime>
 #include <print>
 
 LinkedList::LinkedList() : pHead(nullptr), mSize(0) {}
@@ -13,7 +14,9 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::addTask(const std::string &task_name) {
+  time_t now = time(nullptr);
   auto *pNode = new Node(task_name);
+  pNode->mTask_creation_datetime = ctime(&now);
   if (!pHead) {
     pHead = pNode;
   } else {
@@ -74,48 +77,24 @@ void LinkedList::printTasks() const {
   }
 }
 
-void LinkedList::updateTask(const int task_id, Status status) {
-  Node *pNode = pHead;
-  while (pNode) {
-    if (pNode->mTask_id == task_id) {
-      setTaskStatus(*pNode, status);
-    }
-    pNode = pNode->pNext;
-  }
-}
-
-void LinkedList::updateTask(const int task_id,
-                            const std::string &rTask_description) {
-  Node *pNode = pHead;
-  while (pNode) {
-    if (pNode->mTask_id == task_id) {
-      setTaskDescription(*pNode, rTask_description);
-    }
-    pNode = pNode->pNext;
-  }
-}
-
-void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
-                            const std::string &rTask_description) {
-  Node *pNode = pHead;
-  while (pNode) {
-    if (pNode->mTask_id == task_id) {
-      setTaskName(*pNode, rTask_name);
-      setTaskDescription(*pNode, rTask_description);
-    }
-    pNode = pNode->pNext;
-  }
-}
-
 void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
                             Status status,
                             const std::string &rTask_description) {
   Node *pNode = pHead;
   while (pNode) {
     if (pNode->mTask_id == task_id) {
-      setTaskName(*pNode, rTask_name);
-      setTaskStatus(*pNode, status);
-      setTaskDescription(*pNode, rTask_description);
+      if (rTask_name != "") {
+        setTaskName(*pNode, rTask_name);
+      }
+      if (pNode->mTask_status != status_string(status) &&
+          status != Status::ToDo) {
+        setTaskStatus(*pNode, status);
+      }
+      if (rTask_description != "") {
+        setTaskDescription(*pNode, rTask_description);
+      }
+      time_t now = time(nullptr);
+      pNode->mTask_last_updated_datetime = ctime(&now);
     }
     pNode = pNode->pNext;
   }

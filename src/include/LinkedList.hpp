@@ -19,10 +19,6 @@ public:
   void removeTask(const int task_id);
   void printTasks() const;
 
-  void updateTask(const int task_id, Status status);
-  void updateTask(const int task_id, const std::string &rTask_description);
-  void updateTask(const int task_id, const std::string &rTask_name = "",
-                  const std::string &rTask_description = "");
   void updateTask(const int task_id, const std::string &rTask_name = "",
                   Status status = Status::ToDo,
                   const std::string &rTask_description = "");
