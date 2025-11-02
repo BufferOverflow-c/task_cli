@@ -83,6 +83,8 @@ void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
   Node *pNode = pHead;
   while (pNode) {
     if (pNode->mTask_id == task_id) {
+      time_t now = time(nullptr);
+      pNode->mTask_last_updated_datetime = ctime(&now);
       if (rTask_name != "") {
         setTaskName(*pNode, rTask_name);
       }
@@ -93,8 +95,6 @@ void LinkedList::updateTask(const int task_id, const std::string &rTask_name,
       if (rTask_description != "") {
         setTaskDescription(*pNode, rTask_description);
       }
-      time_t now = time(nullptr);
-      pNode->mTask_last_updated_datetime = ctime(&now);
     }
     pNode = pNode->pNext;
   }

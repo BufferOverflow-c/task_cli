@@ -32,13 +32,6 @@ public:
 
   static void printStatusOptions() {
     std::println("Select an option from the menu:");
-    std::println("1 - Update Task Status");
-    std::println("2 - Update Task Status & Description");
-    std::println("0 - Cancel");
-  }
-
-  static void printDescriptionOptions() {
-    std::println("Select an option from the menu:");
     std::println("1 - ToDo");
     std::println("2 - In Progress");
     std::println("3 - Done");
