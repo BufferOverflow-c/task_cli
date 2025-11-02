@@ -1,9 +1,7 @@
 #include <cctype>
 #include <cstdlib>
-#include <iostream>
 
 #include "LinkedList.hpp"
-#include "Menu.hpp"
 #include "Utils.hpp"
 
 int main() {
