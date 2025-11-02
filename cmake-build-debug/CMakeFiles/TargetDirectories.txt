@@ -1,0 +1,3 @@
+/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/task_cli.dir
+/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/rebuild_cache.dir
