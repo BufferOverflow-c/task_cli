@@ -13,9 +13,7 @@ int main() {
   list.removeTask(2);
   list.printTasks();
 
-  bool is_active = true;
-
-  while (is_active) {
+  while (true) {
     Utils::getInput(list);
   }
 
