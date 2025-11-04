@@ -15,14 +15,16 @@ LinkedList::~LinkedList() {
   }
 }
 
-void LinkedList::addTask(const std::string &rTask_id,
-                         const std::string &rTask_name,
+void LinkedList::addTask(const std::string &rTask_name, std::string rTask_id,
                          const std::string &rTask_status,
                          const std::string &rTask_description,
                          const std::string &rTask_creation_datetime,
                          const std::string &rTask_last_updated_datetime) {
   time_t now = time(nullptr);
   try {
+    if (rTask_id.empty()) {
+      rTask_id = "0";
+    }
     auto *pNode = new Node(std::stoi(rTask_id), rTask_name, rTask_status,
                            rTask_description, rTask_creation_datetime,
                            rTask_last_updated_datetime);

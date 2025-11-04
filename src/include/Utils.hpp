@@ -76,100 +76,101 @@ inline void getInput(LinkedList &list) {
     break;
   }
   }
+}
 
-  inline void getUpdateChoice(LinkedList & list) {
+inline void getUpdateChoice(LinkedList &list) {
+  bool is_valid = false;
+  while (!is_valid) {
+    Menu::printUpdateOptions();
     bool is_valid = false;
-    while (!is_valid) {
-      Menu::printUpdateOptions();
-      bool is_valid = false;
-      Status new_status{Status::ToDo};
-      std::string input;
-      std::string id;
-      std::string name;
-      std::string status;
-      std::string description;
-      std::getline(std::cin, input);
-      int choice;
-      try {
-        choice = std::stoi(input);
-      } catch (std::invalid_argument &e) {
-        std::println("Invalid input!");
-      }
-      switch (choice) {
-      case 1: {
-        bool valid_id = false;
-        int id_int;
-        while (!valid_id) {
-          std::println("Enter task ID:");
-          std::getline(std::cin, id);
-          try {
-            id_int = std::stoi(id);
-            valid_id = true;
-          } catch (std::invalid_argument &e) {
-            std::println("Invalid ID!");
-          }
+    Status new_status{Status::ToDo};
+    std::string input;
+    std::string id;
+    std::string name;
+    std::string status;
+    std::string description;
+    std::getline(std::cin, input);
+    int choice;
+    try {
+      choice = std::stoi(input);
+    } catch (std::invalid_argument &e) {
+      std::println("Invalid input!");
+    }
+    switch (choice) {
+    case 1: {
+      bool valid_id = false;
+      int id_int;
+      while (!valid_id) {
+        std::println("Enter task ID:");
+        std::getline(std::cin, id);
+        try {
+          id_int = std::stoi(id);
+          valid_id = true;
+        } catch (std::invalid_argument &e) {
+          std::println("Invalid ID!");
         }
-        std::println("Enter task name:");
-        std::getline(std::cin, name);
-        list.updateTask(id_int, name);
-        std::println("Task name updated!");
-        break;
       }
-      case 2: {
-        bool valid_int = false;
-        int id_int;
-        while (!valid_int) {
-          std::println("Enter task ID:");
-          std::getline(std::cin, id);
-          try {
-            id_int = std::stoi(id);
-            valid_int = true;
-          } catch (std::invalid_argument &e) {
-            std::println("Invalid ID!");
-          }
+      std::println("Enter task name:");
+      std::getline(std::cin, name);
+      list.updateTask(id_int, name);
+      std::println("Task name updated!");
+      break;
+    }
+    case 2: {
+      bool valid_int = false;
+      int id_int;
+      while (!valid_int) {
+        std::println("Enter task ID:");
+        std::getline(std::cin, id);
+        try {
+          id_int = std::stoi(id);
+          valid_int = true;
+        } catch (std::invalid_argument &e) {
+          std::println("Invalid ID!");
         }
-        bool is_int = false;
-        bool valid_status = false;
-        int status_int;
-        while (!valid_status) {
-          while (!is_int) {
-            Menu::printStatusOptions();
-            std::getline(std::cin, status);
-            try {
-              status_int = std::stoi(status);
-              valid_status = true;
-            } catch (std::invalid_argument &e) {
-              std::println("Invalid status!");
-              continue;
-            }
-          }
-
-          switch (status_int) {
-          case 1:
-            new_status = Status::ToDo;
+      }
+      bool is_int = false;
+      bool valid_status = false;
+      int status_int;
+      while (!valid_status) {
+        while (!is_int) {
+          Menu::printStatusOptions();
+          std::getline(std::cin, status);
+          try {
+            status_int = std::stoi(status);
             valid_status = true;
-            break;
-          case 2:
-            new_status = Status::InProgress;
-            valid_status = true;
-            break;
-          case 3:
-            new_status = Status::Done;
-            valid_status = true;
-            break;
-          case 0:
-            getInput(list);
-            break;
-          default:
+          } catch (std::invalid_argument &e) {
             std::println("Invalid status!");
-            break;
+            continue;
           }
         }
+
+        switch (status_int) {
+        case 1:
+          new_status = Status::ToDo;
+          valid_status = true;
+          break;
+        case 2:
+          new_status = Status::InProgress;
+          valid_status = true;
+          break;
+        case 3:
+          new_status = Status::Done;
+          valid_status = true;
+          break;
+        case 0:
+          getInput(list);
+          is_valid = true;
+          break;
+        default:
+          std::println("Invalid status!");
+          break;
+        }
       }
-        list.updateTask(id_int, name, new_status);
-        std::println("Task status updated!");
-        break;
-      }
+      list.updateTask(id_int, name, new_status);
+      std::println("Task status updated!");
+      break;
+    }
     case 3: {
       bool valid_id = false;
       int id_int;
@@ -233,6 +234,7 @@ inline void getInput(LinkedList &list) {
           break;
         case 0:
           getInput(list);
+          is_valid = true;
           break;
         default:
           std::println("Invalid status!");
@@ -266,6 +268,7 @@ inline void getInput(LinkedList &list) {
           std::getline(std::cin, status);
           try {
             status_int = std::stoi(status);
+            is_int = true;
           } catch (std::invalid_argument &e) {
             std::println("Invalid status!");
             continue;
@@ -286,6 +289,7 @@ inline void getInput(LinkedList &list) {
           break;
         case 0:
           getInput(list);
+          is_valid = true;
           break;
         default:
           std::println("Invalid status!");
@@ -364,6 +368,7 @@ inline void getInput(LinkedList &list) {
           break;
         case 0:
           getInput(list);
+          is_valid = true;
           break;
         default:
           std::println("Invalid status!");
@@ -377,10 +382,13 @@ inline void getInput(LinkedList &list) {
       break;
     }
     case 0:
+      is_valid = true;
       getInput(list);
       break;
-    default:
+
+    default: {
       std::println("Invalid option!");
+    }
     };
   }
 }

@@ -15,7 +15,7 @@ public:
   LinkedList();
   ~LinkedList();
 
-  void addTask(const std::string &rTask_name, const std::string &rTask_id = "",
+  void addTask(const std::string &rTask_name, std::string rTask_id = "",
                const std::string &rTask_status = "",
                const std::string &rTask_description = "",
                const std::string &rTask_creation_datetime = "",
