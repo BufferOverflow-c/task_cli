@@ -67,6 +67,48 @@ inline void getInput(LinkedList &list) {
     std::println("\nTasks printed!");
     break;
   }
+  case 5: {
+    bool valid_file_name = false;
+    std::string file_name;
+    while (!valid_file_name) {
+      std::println("Enter a file name ending with .json:\n");
+      std::getline(std::cin, file_name);
+      try {
+        if (file_name.substr(file_name.find_last_of(".") + 1) == "json") {
+          valid_file_name = true;
+        } else {
+          throw std::invalid_argument("Invalid file extension");
+        }
+      } catch (std::invalid_argument &e) {
+        std::println("Invalid file extension!");
+      }
+    }
+    std::println("Saving tasks..\n");
+    list.saveTasks(file_name);
+    std::println("\nTasks saved!");
+    break;
+  }
+  case 6: {
+    bool valid_file_name = false;
+    std::string file_name;
+    while (!valid_file_name) {
+      std::println("Enter a file name ending with .json:\n");
+      std::getline(std::cin, file_name);
+      try {
+        if (file_name.substr(file_name.find_last_of(".") + 1) == "json") {
+          valid_file_name = true;
+        } else {
+          throw std::invalid_argument("Invalid file extension");
+        }
+      } catch (std::invalid_argument &e) {
+        std::println("Invalid file extension!");
+      }
+    }
+    std::println("Loading tasks..\n");
+    list.loadTasks(file_name);
+    std::println("\nAll tasks deleted!");
+    break;
+  }
   case 0: {
     std::println("Exiting..");
     std::exit(0);
