@@ -3,6 +3,7 @@
 A simple command-line app to track tasks — what you need to do, what you're working on, and what you've finished.
 This project is designed as a small exercise in filesystem I/O, argument parsing, and building a usable CLI without external libraries.
 
+URL: https://roadmap.sh/projects/task-tracker
 ---
 
 ## Features
