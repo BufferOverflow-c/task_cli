@@ -35,6 +35,7 @@ public:
 
 private:
   Node *pHead;
+  Node *pTail;
   int mSize;
 };
 

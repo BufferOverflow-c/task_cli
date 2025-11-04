@@ -1,8 +1,9 @@
 # ninja log v6
-16	1234	1762265945695906001	CMakeFiles/task_cli.dir/src/LinkedList.cpp.o	e6d3c115a205f905
-2	12	1762266937979060740	/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/cmake.verify_globs	bed0ff3eae6a0d54
-16	585	1762266937993254765	CMakeFiles/task_cli.dir/src/main.cpp.o	28998e7a80d9b9c4
-585	681	1762266938562270406	task_cli	d6d5747f1add71cb
-2	11	1762267025499658101	/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/cmake.verify_globs	bed0ff3eae6a0d54
-15	426	1762267025512153012	CMakeFiles/task_cli.dir/src/main.cpp.o	28998e7a80d9b9c4
 426	466	1762267025923851975	task_cli	d6d5747f1add71cb
+15	426	1762267025512153012	CMakeFiles/task_cli.dir/src/main.cpp.o	28998e7a80d9b9c4
+2	11	1762267025499658101	/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/cmake.verify_globs	bed0ff3eae6a0d54
+16	1234	1762265945695906001	CMakeFiles/task_cli.dir/src/LinkedList.cpp.o	e6d3c115a205f905
+2	9	1762270904702642723	/Users/c2/Documents/PersonalProjects/task_cli/cmake-build-debug/CMakeFiles/cmake.verify_globs	bed0ff3eae6a0d54
+12	618	1762270904713228919	CMakeFiles/task_cli.dir/src/main.cpp.o	28998e7a80d9b9c4
+12	1176	1762270904713016754	CMakeFiles/task_cli.dir/src/LinkedList.cpp.o	e6d3c115a205f905
+1176	1268	1762270905877218301	task_cli	d6d5747f1add71cb

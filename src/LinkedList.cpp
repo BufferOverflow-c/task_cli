@@ -29,31 +29,25 @@ void LinkedList::addTask(const std::string &rTask_name, std::string rTask_id,
     if (rTask_id.empty()) {
       rTask_id = "0";
     }
-    try {
-      task_id_int = std::stoi(rTask_id);
-    } catch (std::invalid_argument &e) {
-      std::println("Invalid task ID: {}", e.what());
-      return;
-    }
-    auto *pNode =
-        new Node(task_id_int, rTask_name, rTask_status, rTask_description,
-                 rTask_creation_datetime, rTask_last_updated_datetime);
-    pNode->mTask_creation_datetime = ctime(&now);
-    if (!pHead) {
-      pHead = pNode;
-    } else {
-      Node *pCurr = pHead;
-      while (pCurr->pNext) {
-        pCurr = pCurr->pNext;
-      }
-      pNode->mTask_id = pCurr->mTask_id + 1;
-      pCurr->pNext = pNode;
-    }
-    mSize++;
+    task_id_int = std::stoi(rTask_id);
   } catch (std::invalid_argument &e) {
     std::println("Invalid task ID: {}", e.what());
     return;
   }
+  auto *pNode =
+      new Node(task_id_int, rTask_name, rTask_status, rTask_description,
+               rTask_creation_datetime, rTask_last_updated_datetime);
+  pNode->mTask_creation_datetime =
+      rTask_creation_datetime.empty() ? ctime(&now) : rTask_creation_datetime;
+  if (!pHead) {
+    pHead = pTail = pNode;
+  } else {
+    pNode->mTask_id = pTail->mTask_id + 1;
+    pTail->pNext = pNode;
+    pNode->pPrev = pTail;
+    pTail = pNode;
+  }
+  mSize++;
 }
 
 void LinkedList::removeTask(const int task_id) {
