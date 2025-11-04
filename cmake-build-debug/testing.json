@@ -1,49 +1,26 @@
-0
-Test
-
-
-Tue Nov  4 07:21:18 2025
-
-
-1
-Test2
-
-
-Tue Nov  4 07:21:18 2025
-
-
-3
-Test4
-
-
-Tue Nov  4 07:21:18 2025
-
-
-4
-0
-Test
-
-Tue Nov  4 07:21:55 2025
-
-Tue Nov  4 07:21:18 2025
-5
-1
-Test2
-
-Tue Nov  4 07:21:55 2025
-
-Tue Nov  4 07:21:18 2025
-6
-3
-Test4
-
-Tue Nov  4 07:21:55 2025
-
-Tue Nov  4 07:21:18 2025
-7
-2
-Test3
-
-Tue Nov  4 07:21:55 2025
-
-Tue Nov  4 07:21:18 2025
+[
+  {
+    "creation_datetime": "Tue Nov  4 08:32:39 2025\n",
+    "description": "",
+    "id": 0,
+    "last_updated_datetime": "",
+    "name": "Test",
+    "status": ""
+  },
+  {
+    "creation_datetime": "Tue Nov  4 08:32:39 2025\n",
+    "description": "",
+    "id": 1,
+    "last_updated_datetime": "",
+    "name": "Test2",
+    "status": ""
+  },
+  {
+    "creation_datetime": "Tue Nov  4 08:32:39 2025\n",
+    "description": "",
+    "id": 3,
+    "last_updated_datetime": "",
+    "name": "Test4",
+    "status": ""
+  }
+]

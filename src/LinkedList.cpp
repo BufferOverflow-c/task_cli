@@ -1,8 +1,11 @@
 #include "LinkedList.hpp"
 #include <ctime>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include <print>
 #include <stdexcept>
+
+using json = nlohmann::json;
 
 LinkedList::LinkedList() : pHead(nullptr), mSize(0) {}
 
@@ -101,14 +104,21 @@ void LinkedList::saveTasks(const std::string &filename) {
   }
   Node *pCurr = pHead;
   while (pCurr) {
-    file << pCurr->mTask_id << "\n"
-         << pCurr->mTask_name << "\n"
-         << pCurr->mTask_status << "\n"
-         << pCurr->mTask_description << "\n"
-         << pCurr->mTask_creation_datetime << "\n"
-         << pCurr->mTask_last_updated_datetime << "\n";
+    if (pCurr == pHead) {
+      file << "[\n";
+    } else {
+      file << ",\n";
+    }
+    json data = {{"id", pCurr->mTask_id},
+                 {"name", pCurr->mTask_name},
+                 {"status", pCurr->mTask_status},
+                 {"description", pCurr->mTask_description},
+                 {"creation_datetime", pCurr->mTask_creation_datetime},
+                 {"last_updated_datetime", pCurr->mTask_last_updated_datetime}};
+    file << data.dump();
     pCurr = pCurr->pNext;
   }
+  file << "\n]";
   file.close();
 }
 
