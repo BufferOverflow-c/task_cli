@@ -1,6 +1,8 @@
 #include "LinkedList.hpp"
 #include <ctime>
+#include <fstream>
 #include <print>
+#include <stdexcept>
 
 LinkedList::LinkedList() : pHead(nullptr), mSize(0) {}
 
@@ -13,21 +15,33 @@ LinkedList::~LinkedList() {
   }
 }
 
-void LinkedList::addTask(const std::string &task_name) {
+void LinkedList::addTask(const std::string &rTask_id,
+                         const std::string &rTask_name,
+                         const std::string &rTask_status,
+                         const std::string &rTask_description,
+                         const std::string &rTask_creation_datetime,
+                         const std::string &rTask_last_updated_datetime) {
   time_t now = time(nullptr);
-  auto *pNode = new Node(task_name);
-  pNode->mTask_creation_datetime = ctime(&now);
-  if (!pHead) {
-    pHead = pNode;
-  } else {
-    Node *pCurr = pHead;
-    while (pCurr->pNext) {
-      pCurr = pCurr->pNext;
+  try {
+    auto *pNode = new Node(std::stoi(rTask_id), rTask_name, rTask_status,
+                           rTask_description, rTask_creation_datetime,
+                           rTask_last_updated_datetime);
+    pNode->mTask_creation_datetime = ctime(&now);
+    if (!pHead) {
+      pHead = pNode;
+    } else {
+      Node *pCurr = pHead;
+      while (pCurr->pNext) {
+        pCurr = pCurr->pNext;
+      }
+      pNode->mTask_id = pCurr->mTask_id + 1;
+      pCurr->pNext = pNode;
     }
-    pNode->mTask_id = pCurr->mTask_id + 1;
-    pCurr->pNext = pNode;
+    mSize++;
+  } catch (std::invalid_argument &e) {
+    std::println("Invalid task ID: {}", e.what());
+    return;
   }
-  mSize++;
 }
 
 void LinkedList::removeTask(const int task_id) {
@@ -75,6 +89,46 @@ void LinkedList::printTasks() const {
                  pCurr->mTask_last_updated_datetime);
     pCurr = pCurr->pNext;
   }
+}
+
+void LinkedList::saveTasks(const std::string &filename) {
+  std::ofstream file(filename);
+  if (!file.is_open()) {
+    std::println("Failed to open file for writing.");
+    return;
+  }
+  Node *pCurr = pHead;
+  while (pCurr) {
+    file << pCurr->mTask_id << "\n"
+         << pCurr->mTask_name << "\n"
+         << pCurr->mTask_status << "\n"
+         << pCurr->mTask_description << "\n"
+         << pCurr->mTask_creation_datetime << "\n"
+         << pCurr->mTask_last_updated_datetime << "\n";
+    pCurr = pCurr->pNext;
+  }
+  file.close();
+}
+
+void LinkedList::loadTasks(const std::string &filename) {
+  std::ifstream file(filename);
+  if (!file.is_open()) {
+    std::println("Failed to open file for reading.");
+    return;
+  }
+  std::string task_id;
+  std::string task_name, task_status, task_description, task_creation_datetime,
+      task_last_updated_datetime;
+  while (file >> task_id) {
+    std::getline(file, task_name);
+    std::getline(file, task_status);
+    std::getline(file, task_description);
+    std::getline(file, task_creation_datetime);
+    std::getline(file, task_last_updated_datetime);
+    addTask(task_id, task_name, task_status, task_description,
+            task_creation_datetime, task_last_updated_datetime);
+  }
+  file.close();
 }
 
 void LinkedList::updateTask(const int task_id, const std::string &rTask_name,

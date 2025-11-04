@@ -15,6 +15,8 @@ public:
     std::println("2 - Remove");
     std::println("3 - Update");
     std::println("4 - Display");
+    std::println("5 - Save (JSON)");
+    std::println("6 - Load (JSON)");
     std::println("0 - Exit");
   }
 

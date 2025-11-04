@@ -15,9 +15,15 @@ public:
   LinkedList();
   ~LinkedList();
 
-  void addTask(const std::string &task_name);
+  void addTask(const std::string &rTask_name, const std::string &rTask_id = "",
+               const std::string &rTask_status = "",
+               const std::string &rTask_description = "",
+               const std::string &rTask_creation_datetime = "",
+               const std::string &rTask_last_updated_datetime = "");
   void removeTask(const int task_id);
   void printTasks() const;
+  void saveTasks(const std::string &rFilename);
+  void loadTasks(const std::string &rFilename);
 
   void updateTask(const int task_id, const std::string &rTask_name = "",
                   Status status = Status::ToDo,
