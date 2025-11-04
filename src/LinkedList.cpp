@@ -24,13 +24,20 @@ void LinkedList::addTask(const std::string &rTask_name, std::string rTask_id,
                          const std::string &rTask_creation_datetime,
                          const std::string &rTask_last_updated_datetime) {
   time_t now = time(nullptr);
+  int task_id_int;
   try {
     if (rTask_id.empty()) {
       rTask_id = "0";
     }
-    auto *pNode = new Node(std::stoi(rTask_id), rTask_name, rTask_status,
-                           rTask_description, rTask_creation_datetime,
-                           rTask_last_updated_datetime);
+    try {
+      task_id_int = std::stoi(rTask_id);
+    } catch (std::invalid_argument &e) {
+      std::println("Invalid task ID: {}", e.what());
+      return;
+    }
+    auto *pNode =
+        new Node(task_id_int, rTask_name, rTask_status, rTask_description,
+                 rTask_creation_datetime, rTask_last_updated_datetime);
     pNode->mTask_creation_datetime = ctime(&now);
     if (!pHead) {
       pHead = pNode;
@@ -96,8 +103,8 @@ void LinkedList::printTasks() const {
   }
 }
 
-void LinkedList::saveTasks(const std::string &filename) {
-  std::ofstream file(filename);
+void LinkedList::saveTasks(const std::string &rFilename) {
+  std::ofstream file(rFilename);
   if (!file.is_open()) {
     std::println("Failed to open file for writing.");
     return;
@@ -122,24 +129,19 @@ void LinkedList::saveTasks(const std::string &filename) {
   file.close();
 }
 
-void LinkedList::loadTasks(const std::string &filename) {
-  std::ifstream file(filename);
+void LinkedList::loadTasks(const std::string &rFile_name) {
+  std::ifstream file(rFile_name);
   if (!file.is_open()) {
     std::println("Failed to open file for reading.");
     return;
   }
-  std::string task_id;
-  std::string task_name, task_status, task_description, task_creation_datetime,
-      task_last_updated_datetime;
-  while (file >> task_id) {
-    std::getline(file, task_name);
-    std::getline(file, task_status);
-    std::getline(file, task_description);
-    std::getline(file, task_creation_datetime);
-    std::getline(file, task_last_updated_datetime);
-    addTask(task_id, task_name, task_status, task_description,
-            task_creation_datetime, task_last_updated_datetime);
+  json data = json::parse(file);
+  for (int i{}; i < data.size(); i++) {
+    addTask(data[i]["name"], std::to_string(data[i]["id"].get<int>()),
+            data[i]["status"], data[i]["description"],
+            data[i]["creation_datetime"], data[i]["last_updated_datetime"]);
   }
+
   file.close();
 }
 
